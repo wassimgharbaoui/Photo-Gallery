@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible Photo Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    figure {
+      position: relative;
+      width: 200px;
+      margin: 0;
+      border: 2px solid #ccc;
+      padding: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    figure:focus, figure:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      outline: none;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+    figcaption {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Accessible Photo Gallery</h1>
+  <div class="gallery" id="photoGallery">
+    <figure>
+      <img src="image1.jpg" alt="A serene mountain landscape">
+      <figcaption>Mountain Landscape</figcaption>
+    </figure>
+    <figure>
+      <img src="image2.jpg" alt="A beautiful sunset over the ocean">
+      <figcaption>Sunset Over Ocean</figcaption>
+    </figure>
+    <figure>
+      <img src="image3.jpg" alt="A dense forest with tall trees">
+      <figcaption>Dense Forest</figcaption>
+    </figure>
+    <figure>
+      <img src="image4.jpg" alt="A bustling cityscape at night">
+      <figcaption>Cityscape at Night</figcaption>
+    </figure>
+    <figure>
+      <img src="image5.jpg" alt="A colorful hot air balloon in the sky">
+      <figcaption>Hot Air Balloon</figcaption>
+    </figure>
+    <figure>
+      <img src="image6.jpg" alt="A calm beach with crystal-clear water">
+      <figcaption>Beach with Clear Water</figcaption>
+    </figure>
+  </div>
+
+  <script>
+    // Function to add tabindex attribute dynamically
+    function addTabFocus() {
+      const figures = document.querySelectorAll('figure');
+      for (let i = 0; i < figures.length; i++) {
+        figures[i].setAttribute('tabindex', '0');
+      }
+      console.log("Tabindex attributes added");
+    }
+
+    // Function to handle onfocus event
+    function handleFocus(event) {
+      console.log("Focused on: ", event.target);
+    }
+
+    // Function to handle onblur event
+    function handleBlur(event) {
+      console.log("Blurred from: ", event.target);
+    }
+
+    // Function to handle page load
+    function handlePageLoad() {
+      console.log("Page loaded successfully");
+      addTabFocus(); // Add tabindex on load
+    }
+
+    // Add event listeners
+    window.onload = handlePageLoad;
+
+    const gallery = document.getElementById('photoGallery');
+    gallery.addEventListener('mouseover', (event) => {
+      if (event.target.tagName === 'FIGURE') {
+        console.log("Mouse over: ", event.target);
+      }
+    });
+
+    gallery.addEventListener('mouseleave', (event) => {
+      if (event.target.tagName === 'FIGURE') {
+        console.log("Mouse left: ", event.target);
+      }
+    });
+
+    const figures = document.querySelectorAll('figure');
+    figures.forEach(figure => {
+      figure.addEventListener('focus', handleFocus);
+      figure.addEventListener('blur', handleBlur);
+    });
+  </script>
+</body>
+</html>
