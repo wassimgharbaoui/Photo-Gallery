@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Photo Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #image {
+            width: 400px;
+            height: 300px;
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            line-height: 300px;
+            color: #555;
+            font-size: 20px;
+            border: 2px solid #ccc;
+        }
+
+        .preview {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Photo Gallery</h1>
+    <div id="image">Hover over an image below to display here.</div>
+    <div>
+        <img src="https://via.placeholder.com/100/FF0000" alt="Red Image" class="preview" 
+             onmouseover="upDate(this)" onmouseout="undo()">
+        <img src="https://via.placeholder.com/100/00FF00" alt="Green Image" class="preview" 
+             onmouseover="upDate(this)" onmouseout="undo()">
+        <img src="https://via.placeholder.com/100/0000FF" alt="Blue Image" class="preview" 
+             onmouseover="upDate(this)" onmouseout="undo()">
+    </div>
+
+    <script>
+        // Function to update the preview on hover
+        function upDate(previewPic) {
+            // Get the div with id "image"
+            const imageDiv = document.getElementById("image");
+            
+            // Update the background image and text
+            imageDiv.style.backgroundImage = url('${previewPic.src}');
+            imageDiv.innerText = previewPic.alt;
+
+            // Optional: For debugging
+            console.log("Image updated to:", previewPic.src);
+            console.log("Text updated to:", previewPic.alt);
+        }
+
+        // Function to reset the preview when the mouse leaves
+        function undo() {
+            // Get the div with id "image"
+            const imageDiv = document.getElementById("image");
+
+            // Reset the background image and text
+            imageDiv.style.backgroundImage = "url('')";
+            imageDiv.innerText = "Hover over an image below to display here.";
+
+            // Optional: For debugging
+            console.log("Image and text reset.");
+        }
+    </script>
+</body>
+</html>
